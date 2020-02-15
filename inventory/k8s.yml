@@ -1,0 +1,41 @@
+all:
+  hosts:
+    master-1.k8s.dev:
+      ansible_host: 192.168.9.211
+    master-2.k8s.dev:
+      ansible_host: 192.168.9.212
+    master-3.k8s.dev:
+      ansible_host: 192.168.9.213
+    node-1.k8s.dev:
+      ansible_host: 192.168.9.201
+    node-2.k8s.dev:
+      ansible_host: 192.168.9.202
+    node-3.k8s.dev:
+      ansible_host: 192.168.9.203
+    node-4.k8s.dev:
+      ansible_host: 192.168.9.204
+    node-5.k8s.dev:
+      ansible_host: 192.168.9.205
+  children:
+    kube-master:
+      hosts:
+        master-1.k8s.dev:
+        master-2.k8s.dev:
+        master-3.k8s.dev:
+    kube-node:
+      hosts:
+        node-1.k8s.dev:
+        node-2.k8s.dev:
+        node-3.k8s.dev:
+        node-4.k8s.dev:
+        node-5.k8s.dev:
+    etcd:
+      children:
+        kube-master:
+    k8s-cluster:
+      children:
+        kube-master:
+        kube-node:
+        calico-rr:
+    calico-rr:
+      hosts:
