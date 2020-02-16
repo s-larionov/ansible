@@ -16,3 +16,4 @@
     - name: ingress-grafana.yml
     - name: ingress-service.yml
     - name: ingress-service-monitor.yml
+  tags: [ k8s-prometheus-services ]
