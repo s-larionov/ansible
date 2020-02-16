@@ -1,0 +1,18 @@
+- name: Add Stable Charts Repo
+  shell: helm repo add stable https://kubernetes-charts.storage.googleapis.com
+
+- name: Update Helm Repo
+  shell: helm repo update
+
+- name: Install Prometheus Operator
+  shell: helm upgrade --wait --install prometheus-operator stable/prometheus-operator --namespace monitoring
+
+- name: Install Services
+  k8s:
+    state: present
+    definition: "{{ lookup('template', item.name) | from_yaml }}"
+  loop:
+    - name: ingress-prometheus.yml
+    - name: ingress-grafana.yml
+    - name: ingress-service.yml
+    - name: ingress-service-monitor.yml

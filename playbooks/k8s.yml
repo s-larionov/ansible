@@ -11,3 +11,5 @@
       tags: [ k8s-firewall ]
     - role: k8s-cert-manager
       tags: [ k8s-cert-manager ]
+    - role: k8s-prometheus
+      tags: [ k8s-prometheus ]
