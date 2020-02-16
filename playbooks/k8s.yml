@@ -9,3 +9,5 @@
   roles:
     - role: k8s-firewall
       tags: [ k8s-firewall ]
+    - role: k8s-cert-manager
+      tags: [ k8s-cert-manager ]
