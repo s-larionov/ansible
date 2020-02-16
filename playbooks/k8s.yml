@@ -1,0 +1,11 @@
+- name: K8s Post Install Scripts
+  hosts: master-1.k8s.dev
+  become: yes
+  vars:
+    email_letsencrypt: sergey@larionov.biz
+    fqdn_prometheus: prometheus.devoid.info
+    fqdn_grafana: grafana.devoid.info
+    fqdn_docker_registry: docker-registry.devoid.info
+  roles:
+    - role: k8s-firewall
+      tags: [ k8s-firewall ]
