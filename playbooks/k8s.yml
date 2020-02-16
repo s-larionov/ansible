@@ -13,3 +13,5 @@
       tags: [ k8s-cert-manager ]
     - role: k8s-prometheus
       tags: [ k8s-prometheus ]
+    - role: k8s-docker-registry
+      tags: [ k8s-docker-registry ]

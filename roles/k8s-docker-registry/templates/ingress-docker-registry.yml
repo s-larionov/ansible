@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-do
+  name: docker-registry
+  namespace: kube-system
+spec:
+  rules:
+    - host: {{ fqdn_docker_registry }}
+      http:
+        paths:
+          - backend:
+              serviceName: registry
+              servicePort: 5000
+            path: /
+  tls:
+    - hosts:
+        - {{ fqdn_docker_registry }}
+      secretName: {{ fqdn_docker_registry }}-tls

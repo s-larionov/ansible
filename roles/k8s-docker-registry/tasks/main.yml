@@ -1,0 +1,6 @@
+- name: Install Docker Registry Ingress
+  k8s:
+    state: present
+    definition: "{{ lookup('template', item.name) | from_yaml }}"
+  loop:
+    - name: ingress-docker-registry.yml
