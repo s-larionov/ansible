@@ -83,11 +83,11 @@ ingress_nginx_enabled: true
 ingress_publish_status_address: ""
 # ingress_nginx_nodeselector:
 #   beta.kubernetes.io/os: "linux"
-# ingress_nginx_tolerations:
-#   - key: "node-role.kubernetes.io/master"
-#     operator: "Equal"
-#     value: ""
-#     effect: "NoSchedule"
+ingress_nginx_tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: "Equal"
+    value: ""
+    effect: "NoSchedule"
 # ingress_nginx_namespace: "ingress-nginx"
 # ingress_nginx_insecure_port: 80
 # ingress_nginx_secure_port: 443

@@ -10,12 +10,12 @@ all:
       ansible_host: 192.168.9.201
     node-2.k8s.dev:
       ansible_host: 192.168.9.202
-    node-3.k8s.dev:
-      ansible_host: 192.168.9.203
-    node-4.k8s.dev:
-      ansible_host: 192.168.9.204
-    node-5.k8s.dev:
-      ansible_host: 192.168.9.205
+#    node-3.k8s.dev:
+#      ansible_host: 192.168.9.203
+#    node-4.k8s.dev:
+#      ansible_host: 192.168.9.204
+#    node-5.k8s.dev:
+#      ansible_host: 192.168.9.205
   children:
     kube-master:
       hosts:
@@ -26,9 +26,9 @@ all:
       hosts:
         node-1.k8s.dev:
         node-2.k8s.dev:
-        node-3.k8s.dev:
-        node-4.k8s.dev:
-        node-5.k8s.dev:
+#        node-3.k8s.dev:
+#        node-4.k8s.dev:
+#        node-5.k8s.dev:
     etcd:
       children:
         kube-master:

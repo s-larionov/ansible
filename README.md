@@ -16,9 +16,14 @@ ansible-playbook kubespray/cluster.yml --become --become-user=root
 
 ### Step 2
 
-For next step we have to set a secret with token to API of DigitalOcean.
+For next step we have to set a secret with token to API of DigitalOcean. Also, you have to create a namespace for this secret.
 
-`kubectl apply -f digitalocean-token.yml`
+```bash
+kubectl create namespace cert-manager
+kubectl apply -f digitalocean-token.yml
+```
+
+Content of digitalocean-token.yml
 ```yaml
 apiVersion: v1
 data:
@@ -32,9 +37,10 @@ type: Opaque
 
 ### Step 3
 
-Run post-install roles for k8s.
+Run post-install roles for k8s. Also, you have to create a namespace `monitoring`.
 
 ```shell script
+kubectl create namespace monitoring
 ansible-playbook playbooks/k8s.yml 
 ```
 
