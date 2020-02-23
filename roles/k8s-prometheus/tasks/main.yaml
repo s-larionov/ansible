@@ -13,7 +13,6 @@
     definition: "{{ lookup('template', item.name) | from_yaml }}"
   loop:
     - name: ingress-prometheus.yml
-    - name: ingress-grafana.yml
     - name: ingress-service.yml
     - name: ingress-service-monitor.yml
   tags: [ k8s-prometheus-services ]

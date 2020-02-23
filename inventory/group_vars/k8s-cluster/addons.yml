@@ -7,7 +7,7 @@ dashboard_enabled: true
 helm_enabled: true
 
 # Registry deployment
-registry_enabled: true
+registry_enabled: false
 registry_namespace: kube-system
 # registry_storage_class: ""
 registry_disk_size: "5Gi"
@@ -102,5 +102,5 @@ ingress_nginx_tolerations:
 #   - --default-ssl-certificate=default/foo-tls
 
 # Cert manager deployment
-cert_manager_enabled: false
+cert_manager_enabled: true
 #cert_manager_namespace: cert-manager
