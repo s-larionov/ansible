@@ -1,0 +1,43 @@
+clickhouse_version: "20.1.3.7"
+ch_target_group: ch-cluster
+update_all_packages: false
+remove_packages:
+  - firewalld
+install_packages:
+  - gpg
+  - git
+  - wget
+  - net-tools
+  - mc
+  - curl
+  - zip
+  - unzip
+  - lsof
+  - htop
+  - atop
+  - iotop
+  - ntp
+  - ntpdate
+  - tcpdump
+#firewall_allowed_tcp_ports:
+#  - "22"
+#firewall_forwarded_tcp_ports: []
+##- { src: "22", dest: "2222" }
+#firewall_forwarded_udp_ports: []
+#firewall_additional_rules:
+#  # Servers Internal network
+#  - "iptables -A INPUT -p tcp --dport 9009 -s 10.241.0.0/16 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 9000 -s 10.241.0.0/16 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 8123 -s 10.241.0.0/16 -j ACCEPT"
+#  # Hetzner ClickHouse internal IP
+#  - "iptables -A INPUT -p tcp --dport 9009 -s 195.201.185.0/24 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 9000 -s 195.201.185.0/24 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 8123 -s 195.201.185.0/24 -j ACCEPT"
+#  # Jenkins ops-jenkins.tpc.re/
+#  - "iptables -A INPUT -p tcp --dport 8123 -s 142.234.38.137/32 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 8123 -s 172.255.227.136/32 -j ACCEPT"
+#  # Prometheus exporter
+#  - "iptables -A INPUT -p tcp --dport 9100 -s 67.205.179.21 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 8123 -s 67.205.179.21 -j ACCEPT"
+#firewall_log_dropped_packets: []
+#firewall_ip6_additional_rules: []

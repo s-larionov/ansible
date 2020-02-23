@@ -1,0 +1,10 @@
+---
+- name: Install additional software packages
+  package:
+    name: "{{ install_packages }}"
+    state: present
+
+- name: Remove specified software packages
+  package:
+    name: "{{ remove_packages }}"
+    state: absent

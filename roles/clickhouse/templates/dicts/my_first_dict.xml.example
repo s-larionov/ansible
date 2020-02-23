@@ -1,0 +1,29 @@
+<dictionaries>
+    <dictionary>
+        <name>my_first_dict</name>
+        <source>
+            <file>
+                <path>{{dicts.data_dir}}/my_first_dict.tsv</path>
+                <format>CSV</format>
+            </file>
+        </source>
+        <layout>
+            <hashed/>
+        </layout>
+        <structure>
+            <id>
+                <name>id</name>
+                <type>UInt64</type>
+            </id>
+            <attribute>
+                <name>name</name>
+                <type>String</type>
+                <null_value/>
+            </attribute>
+        </structure>
+        <lifetime>
+            <min>{{dicts.lifetime.min}}</min>
+            <max>{{dicts.lifetime.max}}</max>
+        </lifetime>
+    </dictionary>
+</dictionaries>

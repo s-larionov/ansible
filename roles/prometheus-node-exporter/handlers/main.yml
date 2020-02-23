@@ -1,0 +1,8 @@
+---
+- name: Enable and restart node-exporter
+  listen: node_exporter_restart
+  service:
+    name: prometheus-node-exporter
+    enabled: yes
+    state: restarted
+

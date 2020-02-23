@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!-- {{ ansible_managed }} -->
+<yandex>
+    <macros>
+        <cluster>ch-local</cluster>
+        <shard>{{ shard }}</shard>
+        <replica>{{ replica }}</replica>
+    </macros>
+
+    <interserver_http_host>{{ ansible_host }}</interserver_http_host>
+    <listen_host>::</listen_host>
+
+    <remote_servers>
+        <!-- TODO: Get all hosts from inventory -->
+        <ch-local>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>192.168.9.231</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>192.168.9.232</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>192.168.9.233</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>192.168.9.234</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </ch-local>
+    </remote_servers>
+
+    <!--
+    <zookeeper>
+        <node index="1">
+            <host>192.168.9.241</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>192.168.9.242</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>192.168.9.243</host>
+            <port>2181</port>
+        </node>
+    </zookeeper>
+    -->
+
+    <distributed_ddl>
+        <path>/clickhouse/task_queue/ddl</path>
+    </distributed_ddl>
+
+    <timezone>UTC</timezone>
+
+    <max_concurrent_queries>{{ max_concurrent_queries }}</max_concurrent_queries>
+    <max_connections>{{ max_connections }}</max_connections>
+    <max_session_timeout>{{ max_session_timeout }}</max_session_timeout>
+    <max_memory_usage>{{ max_memory_usage }}</max_memory_usage>
+    <max_memory_usage_for_all_queries>{{ max_memory_usage_for_all_queries }}</max_memory_usage_for_all_queries>
+
+    <interserver_http_port>9009</interserver_http_port>
+    <http_port>8123</http_port>
+    <tcp_port>9000</tcp_port>
+
+    <optimize_move_to_prewhere>0</optimize_move_to_prewhere>
+    <shutdown_wait_unfinished>60</shutdown_wait_unfinished>
+    <insert_distributed_sync>1</insert_distributed_sync>
+    <replication_alter_partitions_sync>2</replication_alter_partitions_sync>
+    <keep_alive_timeout>3</keep_alive_timeout>
+    <default_session_timeout>60</default_session_timeout>
+    <distributed_aggregation_memory_efficient>1</distributed_aggregation_memory_efficient>
+    <uncompressed_cache_size>8589934592</uncompressed_cache_size>
+    <mark_cache_size>5368709120</mark_cache_size>
+    <builtin_dictionaries_reload_interval>3600</builtin_dictionaries_reload_interval>
+
+    <path>/var/lib/clickhouse/</path>
+    <tmp_path>/var/lib/clickhouse/tmp/</tmp_path>
+    <user_files_path>/var/lib/clickhouse/user_files/</user_files_path>
+    <format_schema_path>/var/lib/clickhouse/format_schemas/</format_schema_path>
+    <dictionaries_config>dicts/*.xml</dictionaries_config>
+    <users_config>users.xml</users_config>
+    <default_profile>default</default_profile>
+    <default_database>default</default_database>
+
+    <logger>
+        <level>trace</level>
+        <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+        <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
+        <size>1000M</size>
+        <count>5</count>
+    </logger>
+
+    <compression>
+    </compression>
+</yandex>

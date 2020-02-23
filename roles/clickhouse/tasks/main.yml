@@ -1,0 +1,79 @@
+- name: Add clickhouse repository
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E0C56BD4
+
+- name: Install clickhouse apt repository
+  apt_repository:
+    repo: "deb http://repo.yandex.ru/clickhouse/deb/stable/ main/"
+    state: present
+
+- name: Install clickhouse server
+  apt:
+    name:
+      - clickhouse-server={{ clickhouse_version }}
+      - clickhouse-client={{ clickhouse_version }}
+      - clickhouse-common-static={{ clickhouse_version }}
+    update_cache: yes
+    state: present
+
+- name: Installing users config
+  template:
+    src: users.xml.j2
+    dest: /etc/clickhouse-server/users.xml
+  tags: users
+
+- name: Installing server config
+  template:
+    src: config.xml.j2
+    dest: /etc/clickhouse-server/config.xml
+  tags: config
+
+- name: Updating config directory owner
+  file:
+    owner: root
+    group: root
+    path: /etc/clickhouse-server
+    recurse: yes
+    follow: no
+  tags: config
+
+- name: Installing dictionary definitions
+  template:
+    src: "{{ item }}"
+    dest: "{{dicts.xml_dir}}/{{ item | basename }}"
+  with_fileglob:
+    - ../templates/dicts/*.xml
+  tags: dicts
+
+#- name: Uploading dictionary data files
+#  synchronize:
+#    src: dicts_data/
+#    dest: "{{dicts.data_dir}}/"
+#    archive: no
+#    recursive: yes
+#  tags: dicts
+
+- name: Uploading DDL files
+  synchronize:
+    src: ddl/
+    dest: "{{dicts.ddl_dir}}/"
+    archive: no
+    recursive: yes
+  tags: ddl
+
+- name: Running post-update DDLs
+  shell: clickhouse-client -n < /etc/clickhouse-server/ddl/{{ item | basename }}
+  with_fileglob: ddl/*.sql
+  tags: ddl
+
+- name: Apply system-level performance tunings
+  include: perf-tuning.yml
+  tags: perf-tuning
+
+- name: Start service
+  service:
+    name: clickhouse-server
+    enabled: yes
+    state: reloaded
+  tags: clickhouse-reload

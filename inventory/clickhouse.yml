@@ -1,0 +1,25 @@
+all:
+  hosts:
+    ch1.dev:
+      ansible_host: 192.168.9.231
+      shard: 1
+      replica: 1
+    ch2.dev:
+      ansible_host: 192.168.9.232
+      shard: 1
+      replica: 2
+    ch3.dev:
+      ansible_host: 192.168.9.233
+      shard: 2
+      replica: 1
+    ch4.dev:
+      ansible_host: 192.168.9.234
+      shard: 2
+      replica: 2
+  children:
+    ch-cluster:
+      hosts:
+        ch1.dev:
+        ch2.dev:
+        ch3.dev:
+        ch4.dev:

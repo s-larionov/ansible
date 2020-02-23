@@ -1,0 +1,14 @@
+- name: CH cluster setup
+  hosts: ch-cluster
+  become: yes
+  vars_files:
+    - group_vars/prod.yml
+  roles:
+    - role: base-configuration
+      tags: [ "base-configuration" ]
+    - role: base-software
+      tags: [ "base-software" ]
+    - role: prometheus-node-exporter
+      tags: [ "prometheus-node-exporter" ]
+    - role: clickhouse
+      tags: [ "clickhouse" ]

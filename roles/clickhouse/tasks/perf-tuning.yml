@@ -1,0 +1,43 @@
+- name: Disable SWAP (1/2)
+  shell: |
+    swapoff -a
+
+- name: Disable SWAP (2/2)
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+
+- name: Enable overcommit
+  sysctl:
+    name: vm.overcommit_memory
+    value: '0'
+
+#- name: Set scaling governor to performance
+#  become: yes
+#  shell: echo 'performance' | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+- name: Upload rc.local
+  copy:
+    src: rc.local
+    dest: /etc/rc.local
+    owner: root
+    mode: '0755'
+
+- name: Apply rc.local
+  shell: /etc/rc.local
+
+- name: Configure system settings, file descriptors and number of threads
+  pam_limits:
+    domain: "*"
+    limit_type: "{{item.limit_type}}"
+    limit_item: "{{item.limit_item}}"
+    value: "{{item.value}}"
+  with_items:
+    - { limit_type: '-', limit_item: 'nofile', value: 65536 }
+    - { limit_type: '-', limit_item: 'nproc', value: 65536 }
+    - { limit_type: 'soft', limit_item: 'memlock', value: unlimited }
+    - { limit_type: 'hard', limit_item: 'memlock', value: unlimited }
+
+- name: Reload settings to apply ulimits
+  shell: sysctl --system

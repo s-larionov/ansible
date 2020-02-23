@@ -1,0 +1,42 @@
+# Cleanup manual node_exporter installation
+- name: Find node_exporter unit file
+  stat:
+    path: "/etc/systemd/system/node_exporter.service"
+  register: node_exporter_rule
+
+- name: Stop node_exporter
+  service:
+    name: node_exporter
+    enabled: no
+    state: stopped
+  when: node_exporter_rule.stat.exists == True
+
+- name: Refresh systemd state
+  shell: systemctl daemon-reload
+  when: node_exporter_rule.stat.exists == True
+
+- name: Add Prometheus repo key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3FCD2CB4B7073063B91B79E9F0F10F3FAE8D06BB
+
+- name: Add Prometheus repository
+  apt_repository:
+    repo: deb http://ppa.launchpad.net/prometheus-release-tracking/prometheus-exporters/ubuntu xenial main
+    state: present
+
+- name: Update current repo
+  apt:
+    update_cache: yes
+
+- name: Install role applications
+  apt:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Set default config for node-exporter
+  template:
+    src: templates/default_node_exporter.j2
+    dest: /etc/default/prometheus-node-exporter
+  notify:
+    - node_exporter_restart

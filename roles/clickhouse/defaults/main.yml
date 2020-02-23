@@ -1,0 +1,27 @@
+---
+max_concurrent_queries: 100
+max_connections: 4096
+max_session_timeout: 3600
+max_memory_usage: 1073741824
+max_memory_usage_for_all_queries: 2147483648
+
+dicts:
+  xml_dir: /etc/clickhouse-server/dicts
+  data_dir: /etc/clickhouse-server/dicts_data
+  ddl_dir: /etc/clickhouse-server/ddl
+  lifetime:
+    min: 1800
+    max: 5400
+  source:
+#    mysql_name: >
+#      <port>3306</port>
+#      <user>username</user>
+#      <password>pa$$w0rd</password>
+#      <replica>
+#          <host>1.1.1.1</host>
+#          <priority>1</priority>
+#      </replica>
+#      <replica>
+#          <host>2.2.2.2</host>
+#          <priority>2</priority>
+#      </replica>

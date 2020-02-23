@@ -1,0 +1,15 @@
+packages:
+  - prometheus-node-exporter
+
+disabled_collectors:
+  - infiniband
+  - ipvs
+  - nfs
+  - nfsd
+  - textfile
+  - wifi
+
+broken_node_exporter_path:
+  - "/etc/systemd/system/node_exporter.service"
+  - "/opt/node_exporter"
+  - "/opt/node_exporter-0.17.0-rc.0.linux-amd64"
